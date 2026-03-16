@@ -1102,23 +1102,36 @@
     nav.style.boxShadow = window.scrollY > 50 ? '0 2px 20px rgba(0,0,0,0.08)' : 'none';
   });
 
-  // Contact form — mailto handler (keeps email private)
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
+  // Contact form — Formspree handler
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const role = document.getElementById('role').value;
-    const message = document.getElementById('message').value;
+    const btn = this.querySelector('button[type="submit"]');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
 
-    const subject = encodeURIComponent('HerVoice Project — Connection Request');
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nRole: ${role}\n\nMessage:\n${message}`
-    );
+    const data = new FormData(this);
 
-    window.location.href = `mailto:deweymarino@gmail.com?subject=${subject}&body=${body}`;
+    try {
+      const response = await fetch('https://formspree.io/f/xzdjjryz', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
 
-    document.getElementById('formSuccess').style.display = 'block';
-    this.reset();
+      if (response.ok) {
+        document.getElementById('formSuccess').style.display = 'block';
+        this.reset();
+        btn.textContent = 'Message Sent';
+      } else {
+        btn.textContent = 'Try Again';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      btn.textContent = 'Try Again';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again.');
+    }
   });
 </script>
 </body>
