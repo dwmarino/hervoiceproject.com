@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Dewey Marino | HerVoice Project</title>
+<meta name="description" content="Dewey Marino is the founder of the HerVoice Project — a parent, technologist, and rare disease advocate who decided to build what medicine hasn't.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0d;
+    --paper: #f7f4ef;
+    --warm-white: #fdfcfa;
+    --teal: #1a6b6b;
+    --teal-light: #2a8a8a;
+    --teal-pale: #e8f4f4;
+    --gold: #b8860b;
+    --gold-pale: #fdf8ee;
+    --mid: #6b6560;
+    --rule: #ddd8d0;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(247, 244, 239, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--ink); font-weight: 300; }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--teal); }
+
+  /* ── HERO ── */
+  .bio-hero {
+    padding-top: 7rem;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bio-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(26,107,107,0.2) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .bio-hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 3rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: end;
+  }
+
+  .bio-hero-left {
+    padding-bottom: 5rem;
+  }
+
+  .bio-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.2s forwards;
+  }
+
+  .bio-name {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--warm-white);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.35s forwards;
+  }
+
+  .bio-tagline {
+    font-size: 1rem;
+    color: rgba(253,252,250,0.6);
+    max-width: 42ch;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.5s forwards;
+  }
+
+  .bio-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.65s forwards;
+  }
+
+  .bio-role-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(253,252,250,0.5);
+    background: rgba(255,255,255,0.04);
+  }
+
+  .bio-hero-right {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.5s forwards;
+  }
+
+  .bio-photo-wrap {
+    position: relative;
+    width: 340px;
+  }
+
+  .bio-photo-wrap::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: -20px;
+    right: 20px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--teal), var(--gold));
+  }
+
+  .bio-photo {
+    width: 100%;
+    display: block;
+    filter: grayscale(15%);
+    mix-blend-mode: luminosity;
+  }
+
+  /* ── CONTENT ── */
+  .bio-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 3rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .bio-main {}
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1rem;
+  }
+
+  .rule-line {
+    width: 3rem;
+    height: 2px;
+    background: var(--teal);
+    margin-bottom: 2rem;
+  }
+
+  .bio-section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  .bio-section-title em {
+    font-style: italic;
+    color: var(--teal);
+  }
+
+  .bio-body p {
+    font-size: 1rem;
+    color: var(--mid);
+    margin-bottom: 1.5rem;
+    line-height: 1.85;
+  }
+
+  .bio-body p strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .bio-pullquote {
+    border-left: 3px solid var(--teal);
+    padding: 1.5rem 2rem;
+    margin: 2.5rem 0;
+    background: var(--teal-pale);
+  }
+
+  .bio-pullquote p {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ── SIDEBAR ── */
+  .bio-sidebar {
+    position: sticky;
+    top: 7rem;
+  }
+
+  .sidebar-card {
+    background: var(--warm-white);
+    border: 1px solid var(--rule);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .sidebar-card-title {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .sidebar-item {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .sidebar-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .sidebar-item-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: rgba(107,101,96,0.6);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .sidebar-item-value {
+    font-size: 0.9rem;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .sidebar-item-value a {
+    color: var(--teal);
+    text-decoration: none;
+  }
+
+  .sidebar-item-value a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── TIMELINE ── */
+  .bio-timeline {
+    margin-top: 4rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .timeline-entry {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--rule);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .timeline-entry.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .timeline-entry:last-child {
+    border-bottom: none;
+  }
+
+  .timeline-year {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--teal);
+    padding-top: 0.2rem;
+    line-height: 1.4;
+  }
+
+  .timeline-org {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline-role {
+    font-size: 0.85rem;
+    color: var(--mid);
+    margin-bottom: 0.75rem;
+    font-style: italic;
+  }
+
+  .timeline-desc {
+    font-size: 0.9rem;
+    color: var(--mid);
+    line-height: 1.75;
+  }
+
+  /* ── CTA ── */
+  .bio-cta {
+    margin-top: 5rem;
+    padding: 4rem 3rem;
+    background: var(--ink);
+    text-align: center;
+  }
+
+  .bio-cta-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+    font-weight: 300;
+    color: var(--warm-white);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .bio-cta-title em { font-style: italic; color: var(--teal-light); }
+
+  .bio-cta-sub {
+    font-size: 0.95rem;
+    color: rgba(253,252,250,0.55);
+    max-width: 50ch;
+    margin: 0 auto 2.5rem;
+    line-height: 1.75;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--teal);
+    color: var(--warm-white);
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    margin: 0 0.5rem;
+  }
+
+  .btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: transparent;
+    color: rgba(253,252,250,0.7);
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 0 0.5rem;
+  }
+
+  .btn-ghost:hover { border-color: var(--teal-light); color: var(--teal-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-logo {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--teal-light);
+    text-decoration: none;
+  }
+
+  .footer-logo span { color: rgba(253,252,250,0.5); font-weight: 300; }
+
+  .footer-note {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: rgba(253,252,250,0.3);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links li:nth-child(n+3) { display: none; }
+
+    .bio-hero-inner { grid-template-columns: 1fr; gap: 3rem; padding: 3rem 1.5rem 0; }
+    .bio-hero-right { justify-content: flex-start; }
+    .bio-photo-wrap { width: 240px; }
+
+    .bio-content { grid-template-columns: 1fr; gap: 3rem; padding: 3rem 1.5rem; }
+    .bio-sidebar { position: static; }
+
+    .timeline-entry { grid-template-columns: 100px 1fr; gap: 1rem; }
+
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">HerVoice<span> Project</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#act1">The Challenge</a></li>
+    <li><a href="index.html#act2">The System</a></li>
+    <li><a href="index.html#act3">The Vision</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="index.html#contact">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="bio-hero">
+  <div class="bio-hero-inner">
+    <div class="bio-hero-left">
+      <div class="bio-eyebrow">Founder — HerVoice Project</div>
+      <h1 class="bio-name">Dewey<br>Marino</h1>
+      <p class="bio-tagline">Parent. Technologist. Rare disease advocate. Two decades in geospatial intelligence. One decade building infrastructure for a daughter who communicates in ways the world hasn't learned to receive yet.</p>
+      <div class="bio-roles">
+        <span class="bio-role-tag">Business Development</span>
+        <span class="bio-role-tag">AI Strategy</span>
+        <span class="bio-role-tag">Rare Disease Advocacy</span>
+        <span class="bio-role-tag">GIS & Remote Sensing</span>
+        <span class="bio-role-tag">DDX3X Foundation</span>
+        <span class="bio-role-tag">Esri</span>
+      </div>
+    </div>
+    <div class="bio-hero-right">
+      <div class="bio-photo-wrap">
+        <img src="dewey.jpg" alt="Dewey Marino" class="bio-photo">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="bio-content">
+  <div class="bio-main">
+
+    <div class="section-label fade-in-up">The Story</div>
+    <div class="rule-line fade-in-up"></div>
+
+    <h2 class="bio-section-title fade-in-up">
+      I built what medicine<br>
+      <em>hadn't gotten around to building.</em>
+    </h2>
+
+    <div class="bio-body fade-in-up">
+      <p>My daughter was diagnosed with DDX3X syndrome — one of the leading genetic contributors to intellectual disability in females globally, yet still significantly underdiagnosed. She is nonverbal, and like every nonverbal individual with a complex, multi-system profile, she spent years in rooms where the people responsible for her care each understood one piece of her. Nobody held all of it. Nobody had the time, the data, or the infrastructure to hold eleven years of her simultaneously in mind.</p>
+
+      <p>I watched decisions get made about her life from incomplete pictures. I watched a misdiagnosis enter her record and stay there for years, shaping how clinicians understood her visual profile. I watched services go unclaimed because nobody had the bandwidth to find them. I watched caregiver transitions — each one a small loss of accumulated knowledge that existed nowhere except in someone's memory.</p>
+
+      <p>The tools to solve this didn't exist. So I built them.</p>
+    </div>
+
+    <div class="bio-pullquote fade-in-up">
+      <p>"The gap is not in the person. It is in the infrastructure around them. I decided to build the infrastructure."</p>
+    </div>
+
+    <div class="bio-body fade-in-up">
+      <p>HerVoice is a private, AI-assisted longitudinal care intelligence system — built on a dedicated home server, never cloud-connected, capturing structured observations from every member of a care team and synthesizing them into a continuously updated portrait of who an individual is right now. It is the living version of a Letter of Intent. It is the system that doesn't forget, doesn't retire, and doesn't move on to the next patient.</p>
+
+      <p>The architecture is built for three phases: <strong>today</strong>, where it solves the coordination and continuity crisis facing nonverbal individuals and their families; <strong>near term</strong>, where AI trained on years of longitudinal individual data closes the gap between what a person understands and what they can express; and <strong>the future</strong>, where the richly characterized individual model becomes the foundation that makes robotic caregiving and ambient AI assistance genuinely useful — because the technology will finally have someone to work from.</p>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="bio-timeline">
+      <div class="section-label">Background</div>
+      <div class="rule-line"></div>
+
+      <div class="timeline-entry">
+        <div class="timeline-year">2004 —<br>Present</div>
+        <div>
+          <div class="timeline-org">Esri</div>
+          <div class="timeline-role">Business Development & Program Manager — AI Go-to-Market Strategy</div>
+          <div class="timeline-desc">Two decades at the world's leading geospatial intelligence company, most recently focused on integrating AI into go-to-market strategies for existing and new products and services. Deep background in remote sensing, GIS, and the intersection of spatial data with emerging technology. Esri's platform sits at the center of how governments, enterprises, and researchers understand the physical world — and AI is transforming what that understanding can do.</div>
+        </div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="timeline-year">2016 —<br>2020</div>
+        <div>
+          <div class="timeline-org">DDX3X Foundation</div>
+          <div class="timeline-role">Founding Advisor — Patient Registry & Research Infrastructure</div>
+          <div class="timeline-desc">Joined the DDX3X Foundation in its first months — before any hope for a treatment existed. Appointed as an advisor to guide the Foundation's development and organize the patient cohort to raise the funds needed to generate the first mouse model for research. Led the evaluation of patient registry platforms and recommended the architecture that needed to be flexible enough to grow with the research direction, capture patient-supplied observations, scale to support data analytics, and store raw biometric data. Played a leading role in outreach to the cohort to encourage participation in the natural history study. Work contributed to funding the first DDX3X mouse embryo at the Sherr Lab at UCSF.</div>
+        </div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="timeline-year">2024 —<br>Present</div>
+        <div>
+          <div class="timeline-org">HerVoice Project</div>
+          <div class="timeline-role">Founder & Builder</div>
+          <div class="timeline-desc">Designed and built HerVoice from the ground up — a privately hosted, AI-assisted longitudinal care intelligence system for nonverbal and minimally verbal individuals. The system runs on dedicated local hardware, is never cloud-connected, and captures structured observations from every member of a care team. Currently deploying v1.0 and developing the architecture for the Population-of-One intelligence layer, GraphRAG integration, and Zero-Knowledge Proof disclosure capabilities.</div>
+        </div>
+      </div>
+
+    </div><!-- end timeline -->
+
+  </div><!-- end bio-main -->
+
+  <!-- SIDEBAR -->
+  <div class="bio-sidebar fade-in-up">
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Currently</div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-label">Role</div>
+        <div class="sidebar-item-value">Business Development & Program Manager, AI Strategy</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-label">Organization</div>
+        <div class="sidebar-item-value">Esri — San Diego, CA</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-label">Focus</div>
+        <div class="sidebar-item-value">Integrating AI into go-to-market strategy for geospatial intelligence products</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-label">LinkedIn</div>
+        <div class="sidebar-item-value"><a href="https://www.linkedin.com/in/dewey-marino-69a3b564/" target="_blank" rel="noopener">Connect on LinkedIn</a></div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">HerVoice Project</div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-label">Status</div>
+        <div class="sidebar-item-value">v1.0 deployed — active development</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-label">Platform</div>
+        <div class="sidebar-item-value">Private home server — never cloud-connected</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-label">Architecture</div>
+        <div class="sidebar-item-value">Node.js, SQLite, Anthropic Claude API, Cloudflare Tunnel</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-label">Next milestones</div>
+        <div class="sidebar-item-value">GraphRAG integration, Population-of-One model, ZKP disclosure layer</div>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="sidebar-card-title">Areas of Interest</div>
+      <div class="sidebar-item">
+        <div class="sidebar-item-value" style="line-height: 2;">
+          Rare disease data infrastructure<br>
+          AAC & augmentative communication<br>
+          Longitudinal health AI<br>
+          Privacy-preserving computation<br>
+          Robotic caregiving<br>
+          Geospatial intelligence<br>
+          AI go-to-market strategy
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end sidebar -->
+</div><!-- end bio-content -->
+
+<!-- CTA -->
+<div class="bio-cta">
+  <h2 class="bio-cta-title">
+    Are you building something<br>
+    <em>similar?</em>
+  </h2>
+  <p class="bio-cta-sub">Whether you are a family navigating this same challenge, a researcher or clinician working in rare disease, a technologist who sees what we see, or an organization looking to connect — the conversation matters.</p>
+  <a href="index.html#contact" class="btn-primary">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    Connect With Us
+  </a>
+  <a href="index.html" class="btn-ghost">View the Project</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">HerVoice<span> Project</span></a>
+  <div class="footer-note">hervoiceproject.com &nbsp;·&nbsp; Built by a parent. Designed for a lifetime.</div>
+  <div class="footer-note">© 2026 HerVoice Project. All rights reserved.</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.fade-in-up, .timeline-entry').forEach(el => observer.observe(el));
+
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 50 ? '0 2px 20px rgba(0,0,0,0.08)' : 'none';
+  });
+</script>
+</body>
+</html>
