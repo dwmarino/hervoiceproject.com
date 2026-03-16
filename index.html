@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HerVoice Project — A Longitudinal AI System for Nonverbal Individuals</title>
+<meta name="description" content="HerVoice is a private, AI-assisted care intelligence system for nonverbal and minimally verbal individuals. Built by a parent. Designed for a lifetime.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0d;
+    --paper: #f7f4ef;
+    --warm-white: #fdfcfa;
+    --teal: #1a6b6b;
+    --teal-light: #2a8a8a;
+    --teal-pale: #e8f4f4;
+    --gold: #b8860b;
+    --gold-pale: #fdf8ee;
+    --rust: #8b3a2a;
+    --mid: #6b6560;
+    --rule: #ddd8d0;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAVIGATION ─────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(247, 244, 239, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    transition: all 0.3s ease;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    color: var(--ink);
+    font-weight: 300;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--teal); }
+
+  /* ── HERO ───────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8rem 4rem 5rem;
+    position: relative;
+  }
+
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 60%, rgba(26,107,107,0.25) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal-light);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-headline {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.08;
+    color: var(--warm-white);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--teal-light);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(253,252,250,0.65);
+    max-width: 38ch;
+    line-height: 1.75;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-right {
+    background: var(--warm-white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 5rem;
+    position: relative;
+  }
+
+  .hero-right::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--teal), var(--gold));
+  }
+
+  .hero-stat-grid {
+    display: grid;
+    gap: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .hero-stat {
+    border-left: 2px solid var(--teal);
+    padding-left: 1.5rem;
+  }
+
+  .hero-stat-number {
+    font-family: var(--serif);
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .hero-stat-label {
+    font-size: 0.85rem;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+
+  .hero-cta {
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--teal);
+    color: var(--warm-white);
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .btn-primary:hover { background: var(--teal-light); transform: translateY(-1px); }
+
+  .btn-primary svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: transparent;
+    color: var(--teal);
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border: 1.5px solid var(--teal);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: 1rem;
+  }
+
+  .btn-ghost:hover { background: var(--teal); color: var(--warm-white); }
+
+  /* ── SCROLL INDICATOR ──────────────────────── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1.2s forwards;
+  }
+
+  .scroll-hint span {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(253,252,250,0.4);
+  }
+
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: rgba(253,252,250,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--teal-light);
+    animation: slideRight 2s ease-in-out infinite;
+  }
+
+  /* ── SECTION BASE ───────────────────────────── */
+  section { position: relative; }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1rem;
+  }
+
+  /* ── ACT I: THE SILENCE ─────────────────────── */
+  #act1 {
+    padding: 8rem 0;
+    background: var(--warm-white);
+  }
+
+  .act1-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .act1-left {}
+
+  .act1-headline {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 2rem;
+  }
+
+  .act1-headline em {
+    font-style: italic;
+    color: var(--teal);
+  }
+
+  .act1-body p {
+    font-size: 1rem;
+    color: var(--mid);
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+  }
+
+  .act1-body p strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .act1-right {
+    padding-top: 1rem;
+  }
+
+  .problem-card {
+    border: 1px solid var(--rule);
+    padding: 2rem;
+    margin-bottom: 1.25rem;
+    background: var(--paper);
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .problem-card:hover {
+    border-color: var(--teal);
+    transform: translateX(4px);
+  }
+
+  .problem-number {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--teal);
+    margin-bottom: 0.5rem;
+  }
+
+  .problem-title {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .problem-desc {
+    font-size: 0.88rem;
+    color: var(--mid);
+    line-height: 1.65;
+  }
+
+  /* ── ACT II: THE SYSTEM ─────────────────────── */
+  #act2 {
+    padding: 8rem 0;
+    background: var(--ink);
+    color: var(--warm-white);
+  }
+
+  #act2 .section-label { color: var(--teal-light); }
+
+  .act2-headline {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--warm-white);
+    margin-bottom: 1.5rem;
+    max-width: 20ch;
+  }
+
+  .act2-headline em { font-style: italic; color: var(--teal-light); }
+
+  .act2-intro {
+    font-size: 1rem;
+    color: rgba(253,252,250,0.65);
+    max-width: 55ch;
+    margin-bottom: 5rem;
+    line-height: 1.8;
+  }
+
+  .principle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 5rem;
+  }
+
+  .principle {
+    background: rgba(255,255,255,0.04);
+    padding: 2.5rem 2rem;
+    border-top: 2px solid transparent;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .principle:hover {
+    border-top-color: var(--teal-light);
+    background: rgba(26,107,107,0.08);
+  }
+
+  .principle-icon {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--teal-light);
+    margin-bottom: 1.25rem;
+  }
+
+  .principle-title {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--warm-white);
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .principle-body {
+    font-size: 0.88rem;
+    color: rgba(253,252,250,0.55);
+    line-height: 1.7;
+  }
+
+  /* ── ARCHITECTURE STRIP ─────────────────────── */
+  .arch-strip {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 4rem;
+  }
+
+  .arch-strip-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(253,252,250,0.3);
+    margin-bottom: 2rem;
+  }
+
+  .arch-layers {
+    display: flex;
+    gap: 2px;
+  }
+
+  .arch-layer {
+    flex: 1;
+    padding: 1.25rem 1rem;
+    background: rgba(255,255,255,0.03);
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: rgba(253,252,250,0.4);
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .arch-layer:hover {
+    background: rgba(26,107,107,0.2);
+    color: var(--teal-light);
+  }
+
+  .arch-layer strong {
+    display: block;
+    color: rgba(253,252,250,0.7);
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+  }
+
+  /* ── ACT III: THE VISION ────────────────────── */
+  #act3 {
+    padding: 8rem 0;
+    background: var(--paper);
+  }
+
+  .vision-timeline {
+    position: relative;
+    padding-left: 3rem;
+    margin-top: 4rem;
+  }
+
+  .vision-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: linear-gradient(180deg, var(--teal), var(--gold), var(--rust));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -3.4rem;
+    top: 0.4rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--teal);
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 2px var(--teal);
+  }
+
+  .timeline-item:nth-child(2) .timeline-dot { background: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
+  .timeline-item:nth-child(3) .timeline-dot { background: var(--rust); box-shadow: 0 0 0 2px var(--rust); }
+
+  .timeline-phase {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--teal);
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-item:nth-child(2) .timeline-phase { color: var(--gold); }
+  .timeline-item:nth-child(3) .timeline-phase { color: var(--rust); }
+
+  .timeline-title {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .timeline-title em { font-style: italic; }
+
+  .timeline-body {
+    font-size: 0.95rem;
+    color: var(--mid);
+    max-width: 65ch;
+    line-height: 1.8;
+  }
+
+  /* ── MANIFESTO BLOCK ────────────────────────── */
+  #manifesto {
+    padding: 7rem 0;
+    background: var(--teal);
+  }
+
+  .manifesto-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 3rem;
+    text-align: center;
+  }
+
+  .manifesto-quote {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.35;
+    color: var(--warm-white);
+    margin-bottom: 2rem;
+  }
+
+  .manifesto-sub {
+    font-size: 0.9rem;
+    color: rgba(253,252,250,0.65);
+    max-width: 55ch;
+    margin: 0 auto 3rem;
+    line-height: 1.75;
+  }
+
+  /* ── CONTACT ────────────────────────────────── */
+  #contact {
+    padding: 8rem 0;
+    background: var(--warm-white);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-left {}
+
+  .contact-headline {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-headline em { font-style: italic; color: var(--teal); }
+
+  .contact-body {
+    font-size: 0.95rem;
+    color: var(--mid);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .contact-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--rule);
+    color: var(--mid);
+    background: var(--paper);
+  }
+
+  /* ── FORM ───────────────────────────────────── */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-group label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 0.85rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    width: 100%;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--teal);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 120px; }
+
+  .form-note {
+    font-size: 0.78rem;
+    color: rgba(107,101,96,0.6);
+    line-height: 1.5;
+  }
+
+  .form-success {
+    display: none;
+    background: var(--teal-pale);
+    border: 1px solid var(--teal);
+    padding: 1.5rem 2rem;
+    font-size: 0.9rem;
+    color: var(--teal);
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ─────────────────────────────────── */
+  footer {
+    background: var(--ink);
+    padding: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-logo {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--teal-light);
+  }
+
+  .footer-logo span { color: rgba(253,252,250,0.5); font-weight: 300; }
+
+  .footer-note {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: rgba(253,252,250,0.3);
+  }
+
+  /* ── DIVIDER ────────────────────────────────── */
+  .rule-line {
+    width: 3rem;
+    height: 2px;
+    background: var(--teal);
+    margin-bottom: 2rem;
+  }
+
+  /* ── ANIMATIONS ─────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideRight {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ─────────────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .nav-links li:nth-child(n+3) { display: none; }
+
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 7rem 1.5rem 3rem; }
+    .hero-right { padding: 3rem 1.5rem 5rem; }
+    .hero-stat-grid { grid-template-columns: 1fr 1fr; }
+    .scroll-hint { display: none; }
+
+    .section-inner { padding: 0 1.5rem; }
+
+    .act1-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .principle-grid { grid-template-columns: 1fr; gap: 2px; }
+    .form-row { grid-template-columns: 1fr; }
+
+    .arch-layers { flex-wrap: wrap; }
+    .arch-layer { flex: 0 0 calc(50% - 1px); }
+
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">HerVoice<span> Project</span></a>
+  <ul class="nav-links">
+    <li><a href="#act1">The Challenge</a></li>
+    <li><a href="#act2">The System</a></li>
+    <li><a href="#act3">The Vision</a></li>
+    <li><a href="#contact">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Longitudinal AI for Nonverbal Individuals</div>
+    <h1 class="hero-headline">
+      Every person<br>
+      has a story.<br>
+      <em>Not every person<br>can tell it.</em>
+    </h1>
+    <p class="hero-sub">HerVoice is a private, AI-assisted intelligence system that holds the complete, lifelong picture of a nonverbal or minimally verbal individual — and carries it into every room where decisions about their life are made.</p>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat-grid">
+      <div class="hero-stat">
+        <div class="hero-stat-number">7M+</div>
+        <div class="hero-stat-label">nonverbal or minimally verbal individuals in the United States</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">12+</div>
+        <div class="hero-stat-label">separate systems holding one person's care information — none of them talking to each other</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">0</div>
+        <div class="hero-stat-label">existing systems that hold the complete, longitudinal picture of who that person is</div>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Connect With Us
+      </a>
+      <a href="#act1" class="btn-ghost">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- ACT I: THE SILENCE -->
+<section id="act1">
+  <div class="section-inner">
+    <div class="act1-grid">
+      <div class="act1-left fade-in-up">
+        <div class="section-label">Act I — The Challenge</div>
+        <div class="rule-line"></div>
+        <h2 class="act1-headline">
+          The gap is not in<br>
+          the person.<br>
+          <em>It is in the infrastructure<br>around them.</em>
+        </h2>
+        <div class="act1-body">
+          <p>Imagine understanding everything happening around you — every conversation, every decision about your life, every transition from one caregiver to the next — but having no reliable way to be understood in return.</p>
+          <p>This is the daily reality for millions of nonverbal and minimally verbal individuals. They are not without thought, preference, or personality. They are without infrastructure. <strong>The tools to hold their complete story simply do not exist.</strong></p>
+          <p>Their neurologist sees the scan. Their speech therapist sees the communication. Their teacher sees the classroom. Their new caregiver sees a summary written three years ago. Nobody sees all of it. Nobody has the data, the continuity, or the cognitive bandwidth to hold years of a person simultaneously in mind.</p>
+          <p>Medicine was not built to solve this. The incentive structures are wrong. The data silos are not going away on their own. The families carry the integration burden in their heads — and that burden is not sustainable, not transferable, and not preserved.</p>
+        </div>
+      </div>
+      <div class="act1-right fade-in-up" style="transition-delay: 0.2s;">
+        <div class="problem-card">
+          <div class="problem-number">01 — Fragmentation</div>
+          <div class="problem-title">The information is everywhere and nowhere</div>
+          <div class="problem-desc">Medical records, therapy notes, IEP documents, care observations — distributed across a dozen systems that do not communicate. No single place holds the complete picture.</div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-number">02 — Staleness</div>
+          <div class="problem-title">The profile goes stale the moment it is written</div>
+          <div class="problem-desc">A Letter of Intent written three years ago does not capture who this person is today. There is no mechanism for the document to update itself from the living record — because no living record exists.</div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-number">03 — Siloing</div>
+          <div class="problem-title">Every observer sees a different person</div>
+          <div class="problem-desc">School, family, therapists, and medical teams each hold a different version. No system aggregates all perspectives into a coherent whole. The person in the middle pays the cost.</div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-number">04 — Transition</div>
+          <div class="problem-title">When a caregiver leaves, the knowledge leaves with them</div>
+          <div class="problem-desc">The primary caregiver is a highly specialized expert in one person. When that person is no longer available, the next caregiver starts almost from scratch. Every time.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT II: THE SYSTEM -->
+<section id="act2">
+  <div class="section-inner">
+    <div class="fade-in-up">
+      <div class="section-label">Act II — The System</div>
+      <div class="rule-line" style="background: var(--teal-light);"></div>
+      <h2 class="act2-headline">
+        Built to hold<br>
+        <em>the complete picture</em><br>
+        for a lifetime.
+      </h2>
+      <p class="act2-intro">HerVoice is a private, self-hosted AI system that creates and maintains a lifelong, integrated profile of a nonverbal or minimally verbal individual. It ingests everything. It forgets nothing. It holds the full picture so that every caregiver, clinician, and future trustee can walk into any room fully informed.</p>
+    </div>
+
+    <div class="principle-grid fade-in-up" style="transition-delay: 0.15s;">
+      <div class="principle">
+        <div class="principle-icon">Principle 01</div>
+        <div class="principle-title">The unit of value is the observation</div>
+        <div class="principle-body">Documents are archives. Observations are infrastructure. Every piece of information is broken down into discrete, timestamped, attributable data points — each tagged with a domain, source, and confidence level. Nothing is overwritten. Everything accumulates.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-icon">Principle 02</div>
+        <div class="principle-title">Privacy is enforced architecturally</div>
+        <div class="principle-body">Three layers: a sovereign local data store that never leaves the home server; a de-identification pipeline that transforms observations before any boundary is crossed; and a consent ledger that logs every access event. The boundaries exist in code — not in policy.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-icon">Principle 03</div>
+        <div class="principle-title">Designed for contributors who don't exist yet</div>
+        <div class="principle-body">Today, contributors are humans. In three years, they will also be AI agents — systems that analyze AAC patterns, flag behavioral anomalies, correlate genomic variants with emerging research. The architecture treats all contributors identically: agents with permissions, logs, and accountability.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-icon">Principle 04</div>
+        <div class="principle-title">A living memory, not a static document</div>
+        <div class="principle-body">The profile reflects who this person is right now — continuously synthesized from the longitudinal record. A caregiver onboarding today doesn't get a document from three years ago. They get a current, accurate portrait of the person they are about to care for.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-icon">Principle 05</div>
+        <div class="principle-title">Seven roles. One coherent picture.</div>
+        <div class="principle-body">Parents, therapists, teachers, medical providers, caregivers, peers — each contributes structured observations within their domain. Each sees only what is operationally relevant to their role. The full picture is held by the system, synthesized across all perspectives.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-icon">Principle 06</div>
+        <div class="principle-title">Built to eventually give back to research</div>
+        <div class="principle-body">The architecture is designed so that one day — with explicit consent at every step — de-identified observations could answer federated research queries without the data ever leaving the home. The data stays. The insights travel.</div>
+      </div>
+    </div>
+
+    <div class="arch-strip fade-in-up" style="transition-delay: 0.3s;">
+      <div class="arch-strip-label">System Architecture — Six Layers</div>
+      <div class="arch-layers">
+        <div class="arch-layer"><strong>Intelligence</strong>Population-of-one longitudinal model + GraphRAG</div>
+        <div class="arch-layer"><strong>Sensory</strong>Ambient action agents + wearable monitoring</div>
+        <div class="arch-layer"><strong>Operational</strong>Caregiver scheduling + payment ledger</div>
+        <div class="arch-layer"><strong>Advocacy</strong>IEP engine + admissible narrative generator</div>
+        <div class="arch-layer"><strong>Governance</strong>Sentinel agents + truth discovery</div>
+        <div class="arch-layer"><strong>Legacy</strong>Digital survivorship + zero-knowledge proofs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT III: THE VISION -->
+<section id="act3">
+  <div class="section-inner">
+    <div class="fade-in-up">
+      <div class="section-label">Act III — The Vision</div>
+      <div class="rule-line"></div>
+      <h2 style="font-family: var(--serif); font-size: clamp(2.2rem, 3.5vw, 3.5rem); font-weight: 300; line-height: 1.15; color: var(--ink); max-width: 22ch; margin-bottom: 1rem;">
+        The technology is arriving.<br>
+        <em style="color: var(--teal);">The data infrastructure must be ready.</em>
+      </h2>
+      <p style="font-size: 1rem; color: var(--mid); max-width: 60ch; line-height: 1.8;">We are standing at the beginning of a technological arc that will transform the lives of nonverbal individuals — but only if the longitudinal data infrastructure exists to feed it. HerVoice is building that infrastructure now, one deeply characterized individual at a time.</p>
+    </div>
+
+    <div class="vision-timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Today — Care Intelligence</div>
+        <h3 class="timeline-title">A complete, private, <em>living record</em> of who this person is</h3>
+        <p class="timeline-body">Every observation from every contributor, timestamped and preserved permanently. A current, accurate profile that every caregiver can walk into any room with. A system that survives the transitions that will inevitably come. Built on a home server. Never cloud-connected. Entirely sovereign.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Near Term — Enhanced Communication</div>
+        <h3 class="timeline-title">AI that understands <em>this specific person</em></h3>
+        <p class="timeline-body">A model trained on years of longitudinal AAC data — communication attempts, vocabulary sequences, environmental contexts — that can infer intent from incomplete selections in ways no general system can, because it knows this individual specifically. The gap between what they understand and what they can express begins to close.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">The Future — Robotic Caregiving</div>
+        <h3 class="timeline-title">A <em>digital twin</em> ready for the robotic caregiving era</h3>
+        <p class="timeline-body">When advanced robotic caregiving and living assistance becomes available — and it will — it will require a deeply characterized, longitudinal profile of the individual to function effectively. HerVoice is building that profile now. The families who start today will have a ten-year head start on everyone else. Their loved ones will be ready.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section id="manifesto">
+  <div class="manifesto-inner fade-in-up">
+    <blockquote class="manifesto-quote">"The nonverbal patient is the clearest possible case for aligned AI. There is no ambiguity about whether this serves the person's interests. The entire value proposition is giving voice, representation, and continuity to someone who has none."</blockquote>
+    <p class="manifesto-sub">Society is building extraordinary technology. The question is whether we build the infrastructure to ensure that the individuals who need it most — the ones who cannot advocate for themselves in the rooms where decisions are made — are ready when it arrives.</p>
+    <a href="#contact" class="btn-primary" style="background: var(--warm-white); color: var(--teal);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Join the Conversation
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-left fade-in-up">
+        <div class="section-label">Connect</div>
+        <div class="rule-line"></div>
+        <h2 class="contact-headline">
+          Are you building<br>
+          something <em>similar?</em><br>
+          We want to hear from you.
+        </h2>
+        <p class="contact-body">HerVoice was built by a parent who decided to build what medicine hasn't. If you are a family navigating this same challenge, a researcher or clinician working in rare disease or AAC, a technologist who sees what we see, or an organization that wants to connect — reach out. The conversation matters.</p>
+        <div class="contact-tags">
+          <span class="tag">Nonverbal families</span>
+          <span class="tag">AAC research</span>
+          <span class="tag">Rare disease</span>
+          <span class="tag">Longitudinal data</span>
+          <span class="tag">Robotic caregiving</span>
+          <span class="tag">AI accessibility</span>
+          <span class="tag">Research partnerships</span>
+        </div>
+      </div>
+      <div class="contact-right fade-in-up" style="transition-delay: 0.2s;">
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="role">I am a</label>
+            <select id="role" name="role">
+              <option value="">Select your role</option>
+              <option>Family member / caregiver</option>
+              <option>Researcher or clinician</option>
+              <option>Technologist or engineer</option>
+              <option>Educator</option>
+              <option>Funder or partner organization</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your situation, your work, or what brought you here…" required></textarea>
+          </div>
+          <p class="form-note">Your contact information is used only to respond to your message and will never be shared or sold.</p>
+          <button type="submit" class="btn-primary" style="align-self: flex-start;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Send Message
+          </button>
+          <div class="form-success" id="formSuccess">
+            <strong>Thank you.</strong> Your message has been received. We'll be in touch soon.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">HerVoice<span> Project</span></div>
+  <div class="footer-note">hervoiceproject.com &nbsp;·&nbsp; Built by a parent. Designed for a lifetime.</div>
+  <div class="footer-note">© 2026 HerVoice Project. All rights reserved.</div>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in-up elements
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.fade-in-up, .timeline-item').forEach(el => observer.observe(el));
+
+  // Nav scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 50 ? '0 2px 20px rgba(0,0,0,0.08)' : 'none';
+  });
+
+  // Contact form — mailto handler (keeps email private)
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const role = document.getElementById('role').value;
+    const message = document.getElementById('message').value;
+
+    const subject = encodeURIComponent('HerVoice Project — Connection Request');
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nRole: ${role}\n\nMessage:\n${message}`
+    );
+
+    window.location.href = `mailto:deweymarino@gmail.com?subject=${subject}&body=${body}`;
+
+    document.getElementById('formSuccess').style.display = 'block';
+    this.reset();
+  });
+</script>
+</body>
+</html>
